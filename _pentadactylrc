@@ -1,0 +1,11 @@
+set hintkeys=hjkl;asdfg
+set guioptions=bCrsn
+
+" Performance Tweaks
+set! network.dns.disableIPv6=true
+set! network.http.pipelining=true
+set! network.http.pipelining.ssl=true
+set! network.http.proxy.pipelining=true
+set! network.http.pipelining.maxrequests=64
+set! network.http.max-connections=512
+set! network.http.max-persistent-connections-per-server=32
