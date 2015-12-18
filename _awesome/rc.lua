@@ -7,6 +7,9 @@ require("beautiful")
 -- Notification library
 require("naughty")
 
+-- Extra Widgets
+require("vicious")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -98,6 +101,30 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- }}}
 
 -- {{{ Wibox
+icon_dir = os.getenv("HOME") .. "/.config/awesome/themes/multicolor/icons/"
+widget_separator = widget({ type = "textbox" })
+widget_separator.text = " :: "
+
+-- Create a Battery widget
+function format_battery(widget, args)
+  local format_string = args[1] .. " " .. args[2] .. "%"
+  if args[2] ~= 100 and args[3] ~= "N/A" then
+    format_string = format_string .. " - " .. args[3]
+  end
+  return format_string
+end
+batteryicon = widget({ type = "imagebox" })
+batteryicon.image = image(icon_dir .. "bat.png")
+batterywidget = widget({ type = "textbox" })
+vicious.register(batterywidget, vicious.widgets.bat, format_battery, 60, 'BAT0')
+
+-- Create a CPU widget
+cpu_color = "#D42F69"
+cpuicon = widget({ type = "imagebox" })
+cpuicon.image = image(icon_dir .. "cpu.png")
+cpuwidget = widget({ type = "textbox" })
+vicious.register(cpuwidget, vicious.widgets.cpu, "<span color='" .. cpu_color .. "'>$1%</span>")
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
@@ -180,7 +207,14 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        s == 1 and widget_separator or nil,
         s == 1 and mysystray or nil,
+        widget_separator,
+        cpuwidget,
+        cpuicon,
+        widget_separator,
+        batterywidget,
+        batteryicon,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
