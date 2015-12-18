@@ -286,7 +286,14 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+
+
+    -- Custom Global Keybindings
+    -- Volume Keys
+    awful.key({ }, "XF86AudioMute", function() awful.util.spawn("pactl set-sink-mute 0 toggle") end),
+    awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("pactl set-sink-volume 0 -- -5%") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("pactl set-sink-volume 0 -- +5%") end)
 )
 
 clientkeys = awful.util.table.join(
