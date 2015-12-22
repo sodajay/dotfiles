@@ -293,7 +293,9 @@ globalkeys = awful.util.table.join(
     -- Volume Keys
     awful.key({ }, "XF86AudioMute", function() awful.util.spawn("pactl set-sink-mute 0 toggle") end),
     awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("pactl set-sink-volume 0 -- -5%") end),
-    awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("pactl set-sink-volume 0 -- +5%") end)
+    awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("pactl set-sink-volume 0 -- +5%") end),
+    -- Screenshot
+    awful.key({ }, "Print", function() awful.util.spawn("scrot -e 'gimp $f'") end)
 )
 
 clientkeys = awful.util.table.join(
